@@ -157,20 +157,22 @@
 
     <label>需求類型（可複選）</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="需求類型" value="Banner"> Banner</label>
-      <label><input type="checkbox" name="需求類型" value="在地化"> 在地化</label>
-      <label><input type="checkbox" name="需求類型" value="影片"> 影片</label>
-      <label><input type="checkbox" name="需求類型" value="立牌海報"> 立牌海報</label>
-      <label><input type="checkbox" name="需求類型" value="周邊"> 周邊</label>
+      <label><input type="checkbox" value="Banner" class="需求類型選項"> Banner</label>
+      <label><input type="checkbox" value="在地化" class="需求類型選項"> 在地化</label>
+      <label><input type="checkbox" value="影片" class="需求類型選項"> 影片</label>
+      <label><input type="checkbox" value="立牌海報" class="需求類型選項"> 立牌海報</label>
+      <label><input type="checkbox" value="周邊" class="需求類型選項"> 周邊</label>
     </div>
+    <input type="hidden" name="需求類型" id="需求類型">
 
     <label>交付格式（可複選）</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" name="交付格式" value="JPG"> JPG</label>
-      <label><input type="checkbox" name="交付格式" value="PNG"> PNG</label>
-      <label><input type="checkbox" name="交付格式" value="PSD"> PSD</label>
-      <label><input type="checkbox" name="交付格式" value="MP4"> MP4</label>
+      <label><input type="checkbox" value="JPG" class="交付格式選項"> JPG</label>
+      <label><input type="checkbox" value="PNG" class="交付格式選項"> PNG</label>
+      <label><input type="checkbox" value="PSD" class="交付格式選項"> PSD</label>
+      <label><input type="checkbox" value="MP4" class="交付格式選項"> MP4</label>
     </div>
+    <input type="hidden" name="交付格式" id="交付格式">
 
     <label>其他尺寸需求</label>
     <input type="text" name="其他尺寸">
@@ -197,6 +199,18 @@
   <script>
     document.getElementById("requestForm").addEventListener("submit", function(e) {
       e.preventDefault();
+
+      // 將 checkbox 選項值合併到 hidden 欄位中
+      const selected需求類型 = Array.from(document.querySelectorAll(".需求類型選項:checked"))
+        .map(el => el.value)
+        .join(", ");
+      document.getElementById("需求類型").value = selected需求類型;
+
+      const selected交付格式 = Array.from(document.querySelectorAll(".交付格式選項:checked"))
+        .map(el => el.value)
+        .join(", ");
+      document.getElementById("交付格式").value = selected交付格式;
+
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
         .then(function(response) {
           document.getElementById("requestForm").style.display = "none";

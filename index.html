@@ -260,6 +260,8 @@
       document.getElementById("交付格式").value = getUniqueCheckedValues("input[name='交付格式']");
       document.getElementById("尺寸").value = getUniqueCheckedValues("input[name='尺寸']");
       document.getElementById("是否需要文案_hidden").value = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
+      document.getElementById("InGameBanner_hidden").value = document.querySelector("input[name='InGameBanner']:checked")?.value || "";
+      document.getElementById("文案內文_hidden").value = document.querySelector("textarea[name='文案內文']")?.value.trim() || "";
 
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
         .then(function (response) {
@@ -277,6 +279,9 @@
 <input type="hidden" name="交付格式" id="交付格式">
 <input type="hidden" name="尺寸" id="尺寸">
 <input type="hidden" name="是否需要文案" id="是否需要文案_hidden">
+<input type="hidden" name="InGameBanner" id="InGameBanner_hidden">
+<input type="hidden" name="文案內文" id="文案內文_hidden">
+
 
 </body>
 </html>

@@ -239,7 +239,6 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // 移除網址欄位的 required（如果原本 HTML 設定了）
     const urlField = document.querySelector("input[type='url']");
     if (urlField) {
       urlField.removeAttribute("required");
@@ -248,59 +247,11 @@
     document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // 收集「需求類型」複選值
-      const selected需求類型 = Array.from(document.querySelectorAll("input[name='需求類型']:checked"))
-        .map(el => el.value)
-        .join(", ");
-      let hidden需求類型 = document.getElementById("需求類型");
-      if (!hidden需求類型) {
-        hidden需求類型 = document.createElement("input");
-        hidden需求類型.type = "hidden";
-        hidden需求類型.name = "需求類型";
-        hidden需求類型.id = "需求類型";
-        this.appendChild(hidden需求類型);
-      }
-      hidden需求類型.value = selected需求類型;
-
-      // 收集「交付格式」複選值
-      const selected交付格式 = Array.from(document.querySelectorAll("input[name='交付格式']:checked"))
-        .map(el => el.value)
-        .join(", ");
-      let hidden交付格式 = document.getElementById("交付格式");
-      if (!hidden交付格式) {
-        hidden交付格式 = document.createElement("input");
-        hidden交付格式.type = "hidden";
-        hidden交付格式.name = "交付格式";
-        hidden交付格式.id = "交付格式";
-        this.appendChild(hidden交付格式);
-      }
-      hidden交付格式.value = selected交付格式;
-
-      // 收集「尺寸」複選值
-      const selected尺寸 = Array.from(document.querySelectorAll("input[name='尺寸']:checked"))
-        .map(el => el.value)
-        .join(", ");
-      let hidden尺寸 = document.getElementById("尺寸");
-      if (!hidden尺寸) {
-        hidden尺寸 = document.createElement("input");
-        hidden尺寸.type = "hidden";
-        hidden尺寸.name = "尺寸";
-        hidden尺寸.id = "尺寸";
-        this.appendChild(hidden尺寸);
-      }
-      hidden尺寸.value = selected尺寸;
-
-      // 收集「是否需要文案」radio 值
-      const selected是否需要文案 = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
-      let hidden文案 = document.getElementById("是否需要文案_hidden");
-      if (!hidden文案) {
-        hidden文案 = document.createElement("input");
-        hidden文案.type = "hidden";
-        hidden文案.name = "是否需要文案";
-        hidden文案.id = "是否需要文案_hidden";
-        this.appendChild(hidden文案);
-      }
-      hidden文案.value = selected是否需要文案;
+      // 將複選與單選資料填入已存在的 hidden 欄位
+      document.getElementById("需求類型").value = Array.from(document.querySelectorAll("input[name='需求類型']:checked")).map(el => el.value).join(", ");
+      document.getElementById("交付格式").value = Array.from(document.querySelectorAll("input[name='交付格式']:checked")).map(el => el.value).join(", ");
+      document.getElementById("尺寸").value = Array.from(document.querySelectorAll("input[name='尺寸']:checked")).map(el => el.value).join(", ");
+      document.getElementById("是否需要文案_hidden").value = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
 
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
         .then(function (response) {
@@ -312,6 +263,13 @@
     });
   });
 </script>
+
+<!-- ✅ 在 <form> 中這些欄位需預先存在 -->
+<input type="hidden" name="需求類型" id="需求類型">
+<input type="hidden" name="交付格式" id="交付格式">
+<input type="hidden" name="尺寸" id="尺寸">
+<input type="hidden" name="是否需要文案" id="是否需要文案_hidden">
+
 
 
 </body>

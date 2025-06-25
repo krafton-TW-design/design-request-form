@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>美術設計需求工單</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("kvYs2HUrhZtP1uuqK");
+    })();
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: linear-gradient(to right, #e9f1ff, #fdfdfd);
+      padding: 40px;
+    }
+    form {
+      background-color: #fff;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+      box-sizing: border-box;
+      animation: fadeInUp 0.8s ease-out both;
+    }
+    #thankYou {
+      display: none;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 18px;
+    }
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: #1d3557;
+      animation: fadeIn 1s ease-out both;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 15px;
+      color: #333;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    input[type="text"],
+    input[type="date"],
+    input[type="url"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 24px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .checkbox-group, .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 24px;
+      animation: fadeIn 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    .checkbox-group label,
+    .radio-group label {
+      font-weight: normal;
+      font-size: 14px;
+      color: #555;
+    }
+    textarea {
+      resize: vertical;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #3a86ff, #4361ee);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    button:hover {
+      background: linear-gradient(to right, #265df2, #3f37c9);
+    }
+  </style>
+</head>
+<body>
+  <form id="requestForm">
+    <h2>🎨 美術設計需求工單</h2>
+    <label>產品別</label>
+    <select name="產品別">
+      <option value="PUBG">PUBG</option>
+      <option value="InZOI">InZOI</option>
+      <option value="其他">其他</option>
+    </select>
+
+    <div class="form-grid">
+      <div>
+        <label>專案名稱</label>
+        <input type="text" name="專案名稱">
+      </div>
+      <div>
+        <label>申請人姓名</label>
+        <input type="text" name="申請人姓名">
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div>
+        <label>預計完成日期</label>
+        <input type="date" name="預計完成日期">
+      </div>
+      <div>
+        <label>是否急件</label>
+        <div class="radio-group">
+          <label><input type="radio" name="是否急件" value="是"> 是</label>
+          <label><input type="radio" name="是否急件" value="否" checked> 否</label>
+        </div>
+      </div>
+    </div>
+
+    <label>需求類型（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="需求類型" value="Banner"> Banner</label>
+      <label><input type="checkbox" name="需求類型" value="在地化"> 在地化</label>
+      <label><input type="checkbox" name="需求類型" value="海報/立牌卡"> 海報/立牌卡</label>
+      <label><input type="checkbox" name="需求類型" value="影片"> 影片</label>
+      <label><input type="checkbox" name="需求類型" value="周邊設計"> 周邊設計</label>
+      <label><input type="checkbox" name="需求類型" value="其他"> 其他</label>
+    </div>
+
+    <label>檔案尺寸（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="尺寸" value="1200x1200"> 1200x1200</label>
+      <label><input type="checkbox" name="尺寸" value="1080x1350"> 1080x1350</label>
+      <label><input type="checkbox" name="尺寸" value="1200x600(兩張組圖)"> 1200x600(兩張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1200x600(三張組圖)"> 1200x600(三張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1983x1322(四張組圖)"> 1983x1322(四張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1920x1080"> 1920x1080</label>
+      <label><input type="checkbox" name="尺寸" value="1080x1920"> 1080x1920</label>
+      <label><input type="checkbox" name="尺寸" value="其他"> 其他</label>
+    </div>
+
+    <label>若為其他尺寸，請填寫</label>
+    <input type="text" name="其他尺寸">
+
+    <label>是否需要 In Game Banner</label>
+    <div class="radio-group">
+      <label><input type="radio" name="InGameBanner" value="需要"> 需要</label>
+      <label><input type="radio" name="InGameBanner" value="不需要" checked> 不需要</label>
+    </div>
+
+    <label>風格參考（網址）</label>
+    <input type="url" name="風格參考">
+
+    <label>補充說明</label>
+    <textarea name="補充說明" rows="4"></textarea>
+
+    <label>是否需要文案</label>
+    <div class="radio-group">
+      <label><input type="radio" name="是否需要文案" value="是"> 是</label>
+      <label><input type="radio" name="是否需要文案" value="否" checked> 否</label>
+    </div>
+
+    <div class="form-grid">
+      <div>
+        <label>文案：大標題</label>
+        <input type="text" name="文案大標">
+      </div>
+      <div>
+        <label>文案：副標題</label>
+        <input type="text" name="文案副標">
+      </div>
+    </div>
+
+    <label>文案：內文</label>
+    <textarea name="文案內文" rows="3"></textarea>
+
+    <label>交付格式（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="交付格式" value="PNG"> PNG</label>
+      <label><input type="checkbox" name="交付格式" value="JPG"> JPG</label>
+      <label><input type="checkbox" name="交付格式" value="PSD"> PSD</label>
+      <label><input type="checkbox" name="交付格式" value="MP4"> MP4</label>
+      <label><input type="checkbox" name="交付格式" value="其他"> 其他</label>
+    </div>
+ <button type="submit">送出工單</button>
+  </form>
+  <div id="thankYou">✅ 感謝您已成功送出工單，我們將儘快處理！</div>
+
+  <script>
+    document.getElementById("requestForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
+        .then(function(response) {
+          document.getElementById("requestForm").style.display = "none";
+          document.getElementById("thankYou").style.display = "block";
+        }, function(error) {
+          alert("❌ 發送失敗，請稍後再試或聯絡設計團隊。\n\n錯誤訊息：" + error.text);
+        });
+    });
+  </script>
+</body>
+</html>

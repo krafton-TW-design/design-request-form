@@ -247,10 +247,18 @@
     document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
-      // 將複選與單選資料填入已存在的 hidden 欄位
-      document.getElementById("需求類型").value = Array.from(document.querySelectorAll("input[name='需求類型']:checked")).map(el => el.value).join(", ");
-      document.getElementById("交付格式").value = Array.from(document.querySelectorAll("input[name='交付格式']:checked")).map(el => el.value).join(", ");
-      document.getElementById("尺寸").value = Array.from(document.querySelectorAll("input[name='尺寸']:checked")).map(el => el.value).join(", ");
+      function getUniqueCheckedValues(selector) {
+        return [...new Set(
+          Array.from(document.querySelectorAll(selector))
+            .filter(el => el.checked)
+            .map(el => el.value.trim())
+        )].join(", ");
+      }
+
+      // 填入不重複資料
+      document.getElementById("需求類型").value = getUniqueCheckedValues("input[name='需求類型']");
+      document.getElementById("交付格式").value = getUniqueCheckedValues("input[name='交付格式']");
+      document.getElementById("尺寸").value = getUniqueCheckedValues("input[name='尺寸']");
       document.getElementById("是否需要文案_hidden").value = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
 
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
@@ -269,8 +277,6 @@
 <input type="hidden" name="交付格式" id="交付格式">
 <input type="hidden" name="尺寸" id="尺寸">
 <input type="hidden" name="是否需要文案" id="是否需要文案_hidden">
-
-
 
 </body>
 </html>

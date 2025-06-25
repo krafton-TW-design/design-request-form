@@ -224,8 +224,6 @@
 
     <label>文案：內文</label>
     <textarea name="文案內文" rows="3"></textarea>
-    <label>添加附件（最大 2MB）</label>
-    <input type="file" name="attachment" id="attachment" />
     <label>交付格式（可複選）</label>
     <div class="checkbox-group">
       <label><input type="checkbox" name="交付格式" value="PNG"> PNG</label>
@@ -247,17 +245,7 @@
 
     document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
-
-      // ✅ 檔案大小限制檢查（最大 2MB）
-      const fileInput = document.querySelector("input[name='attachment']");
-      if (fileInput && fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        if (file.size > 2 * 1024 * 1024) {
-          alert("❌ 附件檔案過大，請控制在 2MB 以內。");
-          return;
-        }
-      }
-
+      
       function getUniqueCheckedValues(selector) {
         return [...new Set(
           Array.from(document.querySelectorAll(selector))

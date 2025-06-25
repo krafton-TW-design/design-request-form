@@ -238,22 +238,39 @@
   <div id="thankYou">✅ 感謝您已成功送出工單，我們將儘快處理！</div>
 
 <script>
-    document.getElementById("requestForm").addEventListener("submit", function(e) {
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
       // 收集「需求類型」複選值
-      const selected需求類型 = Array.from(document.querySelectorAll(".需求類型選項:checked"))
+      const selected需求類型 = Array.from(document.querySelectorAll("input[name='需求類型']:checked"))
         .map(el => el.value)
         .join(", ");
-      document.getElementById("需求類型").value = selected需求類型;
+      let hidden需求類型 = document.getElementById("需求類型");
+      if (!hidden需求類型) {
+        hidden需求類型 = document.createElement("input");
+        hidden需求類型.type = "hidden";
+        hidden需求類型.name = "需求類型";
+        hidden需求類型.id = "需求類型";
+        this.appendChild(hidden需求類型);
+      }
+      hidden需求類型.value = selected需求類型;
 
       // 收集「交付格式」複選值
-      const selected交付格式 = Array.from(document.querySelectorAll(".交付格式選項:checked"))
+      const selected交付格式 = Array.from(document.querySelectorAll("input[name='交付格式']:checked"))
         .map(el => el.value)
         .join(", ");
-      document.getElementById("交付格式").value = selected交付格式;
+      let hidden交付格式 = document.getElementById("交付格式");
+      if (!hidden交付格式) {
+        hidden交付格式 = document.createElement("input");
+        hidden交付格式.type = "hidden";
+        hidden交付格式.name = "交付格式";
+        hidden交付格式.id = "交付格式";
+        this.appendChild(hidden交付格式);
+      }
+      hidden交付格式.value = selected交付格式;
 
-      // 新增處理「尺寸」複選值
+      // 收集「尺寸」複選值
       const selected尺寸 = Array.from(document.querySelectorAll("input[name='尺寸']:checked"))
         .map(el => el.value)
         .join(", ");
@@ -263,31 +280,32 @@
         hidden尺寸.type = "hidden";
         hidden尺寸.name = "尺寸";
         hidden尺寸.id = "尺寸";
-        document.getElementById("requestForm").appendChild(hidden尺寸);
+        this.appendChild(hidden尺寸);
       }
       hidden尺寸.value = selected尺寸;
 
-      // 新增處理「是否需要文案」radio
+      // 收集「是否需要文案」radio 值
       const selected是否需要文案 = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
-      let hidden文案 = document.getElementById("是否需要文案");
+      let hidden文案 = document.getElementById("是否需要文案_hidden");
       if (!hidden文案) {
         hidden文案 = document.createElement("input");
         hidden文案.type = "hidden";
         hidden文案.name = "是否需要文案";
-        hidden文案.id = "是否需要文案";
-        document.getElementById("requestForm").appendChild(hidden文案);
+        hidden文案.id = "是否需要文案_hidden";
+        this.appendChild(hidden文案);
       }
       hidden文案.value = selected是否需要文案;
 
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
-        .then(function(response) {
+        .then(function (response) {
           document.getElementById("requestForm").style.display = "none";
           document.getElementById("thankYou").style.display = "block";
-        }, function(error) {
+        }, function (error) {
           alert("❌ 發送失敗，請稍後再試或聯絡設計團隊。\n\n錯誤訊息：" + error.text);
         });
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>

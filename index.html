@@ -104,10 +104,6 @@
       animation: fadeIn 0.6s ease-out forwards;
       opacity: 0;
     }
-    .checkbox-group input,
-    .radio-group input {
-      margin-right: 6px;
-    }
     .checkbox-group label,
     .radio-group label {
       font-weight: normal;
@@ -140,77 +136,110 @@
 <body>
   <form id="requestForm">
     <h2>🎨 美術設計需求工單</h2>
-    <label>專案名稱</label>
-    <input type="text" name="專案名稱">
+    <label>產品別</label>
+    <select name="產品別">
+      <option value="PUBG">PUBG</option>
+      <option value="InZOI">InZOI</option>
+      <option value="其他">其他</option>
+    </select>
 
-    <label>申請人</label>
-    <input type="text" name="申請人">
+    <div class="form-grid">
+      <div>
+        <label>專案名稱</label>
+        <input type="text" name="專案名稱">
+      </div>
+      <div>
+        <label>申請人姓名</label>
+        <input type="text" name="申請人姓名">
+      </div>
+    </div>
 
-    <label>預計完成日期</label>
-    <input type="date" name="預計完成日期">
-
-    <label>是否急件</label>
-    <div class="radio-group">
-      <label><input type="radio" name="是否急件" value="是"> 是</label>
-      <label><input type="radio" name="是否急件" value="否"> 否</label>
+    <div class="form-grid">
+      <div>
+        <label>預計完成日期</label>
+        <input type="date" name="預計完成日期">
+      </div>
+      <div>
+        <label>是否急件</label>
+        <div class="radio-group">
+          <label><input type="radio" name="是否急件" value="是"> 是</label>
+          <label><input type="radio" name="是否急件" value="否" checked> 否</label>
+        </div>
+      </div>
     </div>
 
     <label>需求類型（可複選）</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" value="Banner" class="需求類型選項"> Banner</label>
-      <label><input type="checkbox" value="在地化" class="需求類型選項"> 在地化</label>
-      <label><input type="checkbox" value="影片" class="需求類型選項"> 影片</label>
-      <label><input type="checkbox" value="立牌海報" class="需求類型選項"> 立牌海報</label>
-      <label><input type="checkbox" value="周邊" class="需求類型選項"> 周邊</label>
+      <label><input type="checkbox" name="需求類型" value="Banner"> Banner</label>
+      <label><input type="checkbox" name="需求類型" value="在地化"> 在地化</label>
+      <label><input type="checkbox" name="需求類型" value="海報/立牌卡"> 海報/立牌卡</label>
+      <label><input type="checkbox" name="需求類型" value="影片"> 影片</label>
+      <label><input type="checkbox" name="需求類型" value="周邊設計"> 周邊設計</label>
+      <label><input type="checkbox" name="需求類型" value="其他"> 其他</label>
     </div>
-    <input type="hidden" name="需求類型" id="需求類型">
 
-    <label>交付格式（可複選）</label>
+    <label>檔案尺寸（可複選）</label>
     <div class="checkbox-group">
-      <label><input type="checkbox" value="JPG" class="交付格式選項"> JPG</label>
-      <label><input type="checkbox" value="PNG" class="交付格式選項"> PNG</label>
-      <label><input type="checkbox" value="PSD" class="交付格式選項"> PSD</label>
-      <label><input type="checkbox" value="MP4" class="交付格式選項"> MP4</label>
+      <label><input type="checkbox" name="尺寸" value="1200x1200"> 1200x1200</label>
+      <label><input type="checkbox" name="尺寸" value="1080x1350"> 1080x1350</label>
+      <label><input type="checkbox" name="尺寸" value="1200x600(兩張組圖)"> 1200x600(兩張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1200x600(三張組圖)"> 1200x600(三張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1983x1322(四張組圖)"> 1983x1322(四張組圖)</label>
+      <label><input type="checkbox" name="尺寸" value="1920x1080"> 1920x1080</label>
+      <label><input type="checkbox" name="尺寸" value="1080x1920"> 1080x1920</label>
+      <label><input type="checkbox" name="尺寸" value="其他"> 其他</label>
     </div>
-    <input type="hidden" name="交付格式" id="交付格式">
 
-    <label>其他尺寸需求</label>
+    <label>若為其他尺寸，請填寫</label>
     <input type="text" name="其他尺寸">
+
+    <label>是否需要 In Game Banner</label>
+    <div class="radio-group">
+      <label><input type="radio" name="InGameBanner" value="需要"> 需要</label>
+      <label><input type="radio" name="InGameBanner" value="不需要" checked> 不需要</label>
+    </div>
 
     <label>風格參考（網址）</label>
     <input type="url" name="風格參考">
 
-    <label>文案 - 大標</label>
-    <input type="text" name="文案大標">
-
-    <label>文案 - 副標</label>
-    <input type="text" name="文案副標">
-
-    <label>文案內容</label>
-    <textarea name="文案內容" rows="3"></textarea>
-
     <label>補充說明</label>
     <textarea name="補充說明" rows="4"></textarea>
 
-    <button type="submit">送出工單</button>
+    <label>是否需要文案</label>
+    <div class="radio-group">
+      <label><input type="radio" name="是否需要文案" value="是"> 是</label>
+      <label><input type="radio" name="是否需要文案" value="否" checked> 否</label>
+    </div>
+
+    <div class="form-grid">
+      <div>
+        <label>文案：大標題</label>
+        <input type="text" name="文案大標">
+      </div>
+      <div>
+        <label>文案：副標題</label>
+        <input type="text" name="文案副標">
+      </div>
+    </div>
+
+    <label>文案：內文</label>
+    <textarea name="文案內文" rows="3"></textarea>
+
+    <label>交付格式（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="交付格式" value="PNG"> PNG</label>
+      <label><input type="checkbox" name="交付格式" value="JPG"> JPG</label>
+      <label><input type="checkbox" name="交付格式" value="PSD"> PSD</label>
+      <label><input type="checkbox" name="交付格式" value="MP4"> MP4</label>
+      <label><input type="checkbox" name="交付格式" value="其他"> 其他</label>
+    </div>
+ <button type="submit">送出工單</button>
   </form>
   <div id="thankYou">✅ 感謝您已成功送出工單，我們將儘快處理！</div>
 
   <script>
     document.getElementById("requestForm").addEventListener("submit", function(e) {
       e.preventDefault();
-
-      // 將 checkbox 選項值合併到 hidden 欄位中
-      const selected需求類型 = Array.from(document.querySelectorAll(".需求類型選項:checked"))
-        .map(el => el.value)
-        .join(", ");
-      document.getElementById("需求類型").value = selected需求類型;
-
-      const selected交付格式 = Array.from(document.querySelectorAll(".交付格式選項:checked"))
-        .map(el => el.value)
-        .join(", ");
-      document.getElementById("交付格式").value = selected交付格式;
-
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
         .then(function(response) {
           document.getElementById("requestForm").style.display = "none";

@@ -239,6 +239,12 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
+    // 移除網址欄位的 required（如果原本 HTML 設定了）
+    const urlField = document.querySelector("input[type='url']");
+    if (urlField) {
+      urlField.removeAttribute("required");
+    }
+
     document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -306,6 +312,7 @@
     });
   });
 </script>
+
 
 </body>
 </html>

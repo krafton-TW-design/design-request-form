@@ -245,7 +245,17 @@
 
     document.getElementById("requestForm").addEventListener("submit", function (e) {
       e.preventDefault();
-      
+
+      // ✅ 檔案大小限制檢查（最大 2MB）
+      const fileInput = document.querySelector("input[name='attachment']");
+      if (fileInput && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        if (file.size > 2 * 1024 * 1024) {
+          alert("❌ 附件檔案過大，請控制在 2MB 以內。");
+          return;
+        }
+      }
+
       function getUniqueCheckedValues(selector) {
         return [...new Set(
           Array.from(document.querySelectorAll(selector))
@@ -254,13 +264,28 @@
         )].join(", ");
       }
 
-      // 填入不重複資料
-      document.getElementById("需求類型").value = getUniqueCheckedValues("input[name='需求類型']");
-      document.getElementById("交付格式").value = getUniqueCheckedValues("input[name='交付格式']");
-      document.getElementById("尺寸").value = getUniqueCheckedValues("input[name='尺寸']");
-      document.getElementById("是否需要文案_hidden").value = document.querySelector("input[name='是否需要文案']:checked")?.value || "";
-      document.getElementById("InGameBanner_hidden").value = document.querySelector("input[name='InGameBanner']:checked")?.value || "";
-      document.getElementById("文案內文_hidden").value = document.querySelector("textarea[name='文案內文']")?.value.trim() || "";
+      // 動態建立必要 hidden 欄位避免重複塞進 HTML
+      const form = this;
+
+      const dynamicFields = [
+        { id: "需求類型", value: getUniqueCheckedValues("input[name='需求類型']") },
+        { id: "交付格式", value: getUniqueCheckedValues("input[name='交付格式']") },
+        { id: "尺寸", value: getUniqueCheckedValues("input[name='尺寸']") },
+        { id: "是否需要文案", value: document.querySelector("input[name='是否需要文案']:checked")?.value || "" },
+        { id: "InGameBanner", value: document.querySelector("input[name='InGameBanner']:checked")?.value || "" },
+        { id: "文案內文", value: document.querySelector("textarea[name='文案內文']")?.value.trim() || "" },
+      ];
+
+      dynamicFields.forEach(field => {
+        let hidden = form.querySelector(`input[name='${field.id}']`);
+        if (!hidden) {
+          hidden = document.createElement("input");
+          hidden.type = "hidden";
+          hidden.name = field.id;
+          form.appendChild(hidden);
+        }
+        hidden.value = field.value;
+      });
 
       emailjs.sendForm("service_7zkytfj", "template_n63ubd3", this)
         .then(function (response) {
@@ -271,6 +296,7 @@
         });
     });
   });
-</script> 
+</script>
+
 </body>
 </html>
